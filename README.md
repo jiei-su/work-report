@@ -11,6 +11,8 @@ Finally, send the graph about Working report to my LINE account.
 - ChromeDriver 78.0.3904.105
 - LINE Notify
 
+[LINE Notify] https://notify-bot.line.me/ja/
+
 ## Installation
 ~~~
 $ pip install selenium==3.141.0
