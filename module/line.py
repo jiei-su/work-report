@@ -2,8 +2,8 @@
 """
 勤務レポートをLINE通知する.
 """
-import requests
 import os
+import requests
 from module import report
 
 URL = os.environ['LINE_URL']
@@ -13,20 +13,19 @@ HEADERS = {'Authorization': 'Bearer '+ TOKEN}
 
 def send_success():
     """
-    勤務レポート作成成功.
+    勤務レポート作成成功パターン.
     """
-    message = report.TODAY
-    payload = {'message': message}
-    files = {'imageFile': open('./module/report.png', 'rb')}
+    requests.post(URL, headers=HEADERS,
+                  params={'message': report.TODAY},
+                  files={'imageFile': open('./module/report.png', 'rb')})
+    os.remove('./module/report.png')
 
-    requests.post(URL, headers=HEADERS, params=payload, files=files)
 
-
-def send_error():
+def send_error(err_msg):
     """
-    勤務レポート作成失敗.
-    """
-    message = '勤務レポートの作成に失敗しました'
-    payload = {'message': message}
+    勤務レポート作成失敗パターン.
 
-    requests.post(URL, headers=HEADERS, params=payload)
+    @param:
+        err_msg エラーメッセージ
+    """
+    requests.post(URL, headers=HEADERS, params={'message': err_msg})
